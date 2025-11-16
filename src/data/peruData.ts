@@ -16,12 +16,29 @@ export const departamentosPeru: Departamento[] = [
     provincias: [
       {
         nombre: 'Lima',
-        distritos: ['Lima', 'San Isidro', 'Miraflores', 'Surco', 'La Molina', 'Pueblo Libre', 'Magdalena']
+        distritos: ['Lima', 'Ancón', 'Ate', 'Barranco', 'Breña', 'Carabayllo', 'Chaclacayo', 'Chorrillos', 'Cieneguilla', 'Comas', 'El Agustino', 'Independencia', 'Jesús María', 'La Molina', 'La victoria', 'Lince', 'Los Olivos', 'Lurigancho', 'Lurin', 'Magdalena del Mar', 'Pueblo Libre', 'Miraflores', 'Pachacamac', 'Pucusana', 'Puente Piedra', 'Punta Hermosa', 'Punta Negra', 'Rímac', 'San Bartolo', 'San Borja', 'San Isidro', 'San Juan de Lurigancho', 'San Juan de Miraflores', 'San Luis', 'San Martín de Porres', 'San Miguel', 'Santa Anita', 'Santa María del Mar', 'Santa Rosa', 'Santiago de Surco', 'Surquillo', 'Villa El Salvador', 'Villa María del Triunfo']
+      },
+      {
+        nombre: 'Barranca',
+        distritos: ['Barranca', 'Paramonga', 'Pativilca', 'Supe', 'Supe Puerto']
+      }, 
+      {
+        nombre: 'Cajatambo',
+        distritos: ['Cajatambo', 'Copa', 'Gorgor', 'Huancapon', 'Manas']
+      },
+      {
+        nombre: 'Canta',
+        distritos: ['Canta', 'Arahuay', '', 'Huauros', 'Lachaqui', 'San Buenaventura', 'Santa Rosa de Quives']
       },
       {
         nombre: 'Cañete',
+        distritos: ['San Vicente de Cañete', 'Asia', 'Calango', 'Cerro Azul', 'Chilca', 'Coayllo', 'Imperial','Lunahuana', 'Mala', 'Nuevo Imperial', 'Chancay', 'Ihuari', 'Lampian', 'Pacaraos','San Miguel de Acos', 'Santa Cruz de Andamarca', 'Sumbilca', 'Ventisiete de Noviembre']
+      },
+      {
+        nombre: 'Huarochiri',
         distritos: ['San Vicente de Cañete', 'Mala', 'Chilca', 'Asia']
       }
+
     ]
   },
   {
