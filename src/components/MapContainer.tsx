@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react'
+import * as L from 'leaflet'
+
 interface MapContainerProps {
   ubicacion?: {
     departamento: string;
@@ -7,45 +10,51 @@ interface MapContainerProps {
 }
 
 export const MapContainer = ({ ubicacion }: MapContainerProps) => {
+  const mapRef = useRef<L.Map | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return
+
+    const peruBounds = L.latLngBounds(
+      L.latLng(-18.5, -81.5),
+      L.latLng(-0.5, -68.0)
+    )
+
+    mapRef.current = L.map(containerRef.current, {
+      center: [-9.189967, -75.015152],
+      zoom: 6,
+      minZoom: 4,
+      maxZoom: 18,
+      maxBounds: peruBounds,
+      maxBoundsViscosity: 0.7
+    })
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(mapRef.current)
+
+    return () => {
+      mapRef.current?.remove()
+      mapRef.current = null
+    }
+  }, [])
+
   return (
-    <div className="h-full w-full bg-white rounded-2xl 
-                    border-2 border-gray-300 
-                    shadow-lg flex items-center justify-center">
-      <div className="text-center p-8">
-        <div className="bg-gray-100 p-6 rounded-2xl inline-block mb-4 shadow-md border border-gray-200">
-          <svg 
-            className="h-20 w-20 text-black" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" 
-            />
-          </svg>
-        </div>
-        <h3 className="text-2xl font-bold text-black mb-3">
-          Mapa Interactivo
-        </h3>
+    <div className="h-full w-full rounded-2xl border-2 border-gray-300 shadow-lg relative overflow-hidden bg-white">
+      <div ref={containerRef} className="h-full w-full" />
+      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-xl p-4 shadow-md border border-gray-200">
+        <h3 className="text-lg font-bold text-black mb-1">Mapa Interactivo</h3>
         {ubicacion ? (
-          <div className="bg-gray-50 rounded-xl p-4 shadow-md border border-gray-200">
-            <p className="text-sm font-semibold text-black mb-1">Ubicación Seleccionada:</p>
-            <p className="text-base text-black font-medium">
-              {ubicacion.distrito}, {ubicacion.provincia}
-            </p>
-            <p className="text-sm text-gray-700 mt-1">
-              {ubicacion.departamento}
-            </p>
+          <div>
+            <p className="text-sm font-semibold text-black">Ubicación Seleccionada:</p>
+            <p className="text-sm text-black">{ubicacion.distrito}, {ubicacion.provincia}</p>
+            <p className="text-xs text-gray-700">{ubicacion.departamento}</p>
           </div>
         ) : (
-          <p className="text-sm text-gray-600">
-            Seleccione una ubicación para visualizar en el mapa
-          </p>
+          <p className="text-sm text-gray-600">Seleccione una ubicación para visualizar en el mapa</p>
         )}
       </div>
     </div>
-  );
+  )
 };
